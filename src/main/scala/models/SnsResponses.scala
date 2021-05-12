@@ -3,6 +3,26 @@ package models
 import java.util.UUID
 
 object SnsResponses:
+  def subscriptionResponse(subscription: Subscription) =
+   <SubscribeResponse>
+      <SubscribeResult>
+          <SubscriptionArn>{subscription.arn}</SubscriptionArn>
+      </SubscribeResult>
+      <ResponseMetadata>
+          <RequestId>{UUID.randomUUID()}</RequestId>
+      </ResponseMetadata>
+    </SubscribeResponse>
+
+  def publishResponse =
+    <PublishResponse>
+      <PublishResult>
+          <MessageId>{UUID.randomUUID()}</MessageId>
+      </PublishResult>
+      <ResponseMetadata>
+          <RequestId>{UUID.randomUUID()}</RequestId>
+      </ResponseMetadata>
+    </PublishResponse> 
+
   def listTopicsResponse(topics: Set[Topic]) =
     <ListTopicsResponse>
       <ListTopicsResult>{topics.map:
@@ -31,7 +51,7 @@ object SnsResponses:
     </CreateTopicResponse>
 
   def deleteTopicResponse =
-    <DeleteTopicResponse xmlns="http://sns.amazonaws.com/doc/2010-03-31/">
+    <DeleteTopicResponse>
       <ResponseMetadata>
         <RequestId>{UUID.randomUUID}</RequestId>
       </ResponseMetadata>

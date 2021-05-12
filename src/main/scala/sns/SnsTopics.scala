@@ -21,3 +21,5 @@ class SnsTopics(topics: Ref[IO, Map[String, Topic]], region: Region):
 
   def listAll: IO[Set[Topic]] = topics.get.map { m => m.values.toSet }
 
+  def byArn(arn: String): IO[Option[Topic]] = topics.get.map { map => map.get(arn) }
+
